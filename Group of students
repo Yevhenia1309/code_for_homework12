@@ -1,0 +1,105 @@
+1. Створіть клас, що описує людину (створіть метод, що виводить інформацію про людину).
+2) На його основі створіть клас Студент (перевизначте метод виведення інформації).
+3) Створіть клас Група, який містить масив із 10 об'єктів класу Студент.
+Реалізуйте методи додавання, видалення студента та метод пошуку студента за прізвищем.
+Визначте для Групи метод str() для повернення списку студентів у вигляді рядка.
+
+class Person:
+    """ створюємо клас Людина: им'я, по-батькові, прізвище, вік"""
+
+    def __init__(self, name: str, second_name: str, surname: str, age: int):
+        self.name = name
+        self.second_name = second_name
+        self.surname = surname
+        self.age = age
+
+    def print_name(self):  # функція виведення ПІБ
+        return f'Person: {self.name} {self.second_name} {self.surname}'
+
+    def print_age(self):  # функція виведення віку
+        return f'Age: {self.age} years old'
+
+    def __str__(self):  # функція загального опису людини
+        return f'Person: {self.name} {self.second_name} {self.surname}, age: {self.age} years old'
+
+
+person_1 = Person('Alexander', "Yurievich", 'Tvix', 18)
+person_2 = Person('Iryna', 'Victorivna', 'Mazur', 19)
+person_3 = Person('Blad', 'Olegovich', 'Nofer', 19)
+
+
+class Student(Person):
+    def __init__(self, name, second_name, surname, age, university: str, faculty: str):
+        super().__init__(name, second_name, surname, age)
+        self.university = university
+        self.faculty = faculty
+
+    def print_university(self):
+        return f'University: {self.university}'
+
+    def print_faculty(self):
+        return f'Faculty: {self.faculty}'
+
+    def __str__(self):  # функція загального опису студента: людина+студент
+        return "Student: " + super().__str__() + ',' + " university is {}, faculty is {}".format(self.university,\
+                                                                                                 self.faculty)
+
+student_1 = Student('Alexander', "Yurievich", 'Tvix', 18, 'UNI', "law")
+student_2 = Student('Iryna', 'Victorivna', 'Mazur', 19, 'UNI', 'economic')
+student_3 = Student('Vlad', 'Olegovich', 'Nofer', 26, 'UNI', 'veterinary')
+
+class Group:
+    """створюємо клас група студентів"""
+
+    def __init__(self, title):
+            self.title = title
+            self.list_students = []
+
+    def add_student(self, student):
+        if student not in self.list_students and len(self.list_students) < 10:
+            self.list_students.append(student)
+        else:
+            print('This group is full')
+
+    def delete_student(self, student):
+        if student in self.list_students:
+            return self.list_students.remove(student)
+        else:
+            print('There is no such student in the group')
+
+    def find_student(self, student):
+        if student in self.list_students:
+            return student
+        else:
+            print('There is no such student in the group')
+
+    def __str__(self):
+        return f"{self.title}\n{'^' * 13}\n" + '\n'.join(map(str, self.list_students)) + '\n'
+
+student_1 = Student('Alexander', "Yurievich", 'Tvix', 18, 'UNI', "law")
+student_2 = Student('Iryna', 'Victorivna', 'Mazur', 19, 'UNI', 'economic')
+student_3 = Student('Vlad', 'Olegovich', 'Nofer', 26, 'UNI', 'veterinary')
+student_4 = Student('Olha', 'Yurievna', 'Bryk', 23, 'UNI', 'mechanic')
+student_5 = Student('Dmitriy', "Vasilievich", 'Acunin', 18, 'UNI', 'law')
+student_6 = Student('Maryna', 'Victorivna', 'Tvix', 19, 'UNI', 'economic')
+student_7 = Student('Anna', 'Olexandrivna', 'Mon', 20, 'UNI', 'veterinary')
+student_8 = Student('Kira', 'Viktorivna', 'Longer', 18, 'UNI', 'mechanic')
+student_9 = Student('Ivan', "Petrovich", 'Laska', 21, 'UNI', "law")
+student_10 = Student('Kateryna', 'Ivanivna', 'Lotr', 19, 'UNI', 'economic')
+student_11 = Student('Valeriy', 'Dmitrievich', 'Lif', 28, 'UNI', 'law')
+
+
+group_english = Group('English group')
+group_english.add_student(student_1)
+group_english.add_student(student_2)
+group_english.add_student(student_3)
+group_english.add_student(student_4)
+group_english.add_student(student_5)
+group_english.add_student(student_6)
+group_english.add_student(student_7)
+group_english.add_student(student_8)
+group_english.add_student(student_9)
+group_english.add_student(student_10)
+
+
+print(group_english)
