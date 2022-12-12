@@ -14,13 +14,13 @@ class Person:
         self.age = age
 
     def print_name(self):  # функція виведення ПІБ
-        return f'Person: {self.name} {self.second_name} {self.surname}'
+        return f'{self.name} {self.second_name} {self.surname}'
 
     def print_age(self):  # функція виведення віку
         return f'Age: {self.age} years old'
 
     def __str__(self):  # функція загального опису людини
-        return f'Person: {self.name} {self.second_name} {self.surname}, age: {self.age} years old'
+        return f'{self.name} {self.second_name} {self.surname}, age: {self.age} years old'
 
 
 person_1 = Person('Alexander', "Yurievich", 'Tvix', 18)
@@ -51,26 +51,26 @@ student_3 = Student('Vlad', 'Olegovich', 'Nofer', 26, 'UNI', 'veterinary')
 class Group:
     """створюємо клас група студентів"""
 
-    def __init__(self, title):
+    def __init__(self, title: str, max_students: int = 10):
         self.title = title
         self.list_students = []
         self.max_students = max_students
 
-    def add_student(self, student):
+    def add_student(self, student: Student):
         if student not in self.list_students and len(self.list_students) < self.max_students:
             self.list_students.append(student)
 
-    def delete_student(self, student):
+    def delete_student(self, student: Student):
         if student in self.list_students:
-            return self.list_students.remove(student)
+            self.list_students.remove(student)
 
-    def find_student(self, student):
+    def find_student(self, surname):
         res = []
         for student in self.list_students:
             if student.surname == surname:
                 res.append(student)
-            return res
-        
+        return res
+
     def __str__(self):
         return f"{self.title}\n{'^' * 13}\n" + '\n'.join(map(str, self.list_students)) + '\n'
 
@@ -82,10 +82,9 @@ student_5 = Student('Dmitriy', "Vasilievich", 'Acunin', 18, 'UNI', 'law')
 student_6 = Student('Maryna', 'Victorivna', 'Tvix', 19, 'UNI', 'economic')
 student_7 = Student('Anna', 'Olexandrivna', 'Mon', 20, 'UNI', 'veterinary')
 student_8 = Student('Kira', 'Viktorivna', 'Longer', 18, 'UNI', 'mechanic')
-student_9 = Student('Ivan', "Petrovich", 'Laska', 21, 'UNI', "law")
+student_9 = Student('Kira', 'Viktorivna', 'Longer', 18, 'UNI', 'mechanic')
 student_10 = Student('Kateryna', 'Ivanivna', 'Lotr', 19, 'UNI', 'economic')
 student_11 = Student('Valeriy', 'Dmitrievich', 'Lif', 28, 'UNI', 'law')
-
 
 group_english = Group('English group')
 group_english.add_student(student_1)
@@ -98,6 +97,6 @@ group_english.add_student(student_7)
 group_english.add_student(student_8)
 group_english.add_student(student_9)
 group_english.add_student(student_10)
-
+group_english.add_student(student_11)
 
 print(group_english)
